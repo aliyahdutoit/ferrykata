@@ -62,18 +62,29 @@ it('should update car count correctly when a car leaves the ferry', () => {
 
 
 // Method to board a car onto the ferry with discounts
-it('should give a free trip after 7 trips on any ferry', () => {
+it('should give a 50% discount on the 3rd and 6th trips', () => {
   const myFerry = new Ferry(10, 50);
+  const color = 'red';
 
-  // Make 6 regular trips
-  for (let i = 0; i < 6; i++) {
-    const result = myFerry.board('red');
+  // Make 2 regular trips
+  for (let i = 0; i < 2; i++) {
+    const result = myFerry.board(color);
     assert.strictEqual(result, 'accepted');
   }
 
-  // Seventh trip should be free
-  const result7 = myFerry.board('red');
-  assert.strictEqual(result7, 'you go free!');
+  // The 3rd trip should be half price
+  const result3 = myFerry.board(color);
+  assert.strictEqual(result3, 'half price');
+
+  // Make 2 more regular trips
+  for (let i = 0; i < 2; i++) {
+    const result = myFerry.board(color);
+    assert.strictEqual(result, 'accepted');
+  }
+
+  // The 6th trip should be half price
+  const result6 = myFerry.board(color);
+  assert.strictEqual(result6, 'half price');
 });
 
 });

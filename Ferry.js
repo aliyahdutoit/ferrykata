@@ -92,26 +92,25 @@ removeCar(colorToRemove) {
   board(color) {
     if (this._carTrips.has(color)) {
       const trips = this._carTrips.get(color);
-      if (trips < 2) {
+      
+      if (trips === 2 || trips === 5) {
         this._carTrips.set(color, trips + 1);
-        return 'accepted'; // Regular boarding for the first two trips
-      } else if (trips === 2) {
-        this._carTrips.set(color, trips + 1);
-        return 'half price'; // 50% discount on the third trip
+        return 'half price'; // Third and sixth trips are at a discount
+      } else if (trips === 7) {
+        return 'you go free!'; // Seventh trip is free
       } else {
         this._carTrips.set(color, trips + 1);
-        this._totalTrips++; // Increment the total trips
-        if (this._totalTrips % 7 === 0) {
-          return 'you go free!'; // Every 7th trip is free
-        } else {
-          return 'accepted'; // All other trips
-        }
+        return 'accepted'; // All other trips
       }
     } else {
       this._carTrips.set(color, 1);
       return 'accepted'; // First trip is accepted
     }
   }
+  
+
+  
+  
 
 };
 
